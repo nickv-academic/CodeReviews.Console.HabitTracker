@@ -17,8 +17,20 @@ public class Menu
         switch (input)
         {
             case "1":
-                // NewOccurence();
+                var createOccurrence = new OccurrenceManager();
+                createOccurrence.CreateOccurrence();
                 break;
+            case "2":
+                var viewOccurrence = new OccurrenceManager();
+                viewOccurrence.ViewOccurrences();
+                break;
+            case "3":
+                var habitManager = new HabitManager();
+                habitManager.CreateHabit();
+                break;
+            case "4":
+                Console.WriteLine("\nGoodbye!");
+                return;
         }
     }
 }
