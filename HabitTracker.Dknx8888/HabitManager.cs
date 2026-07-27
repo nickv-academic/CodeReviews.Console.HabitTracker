@@ -1,34 +1,58 @@
+using HabitTracker.Dknx8888.Data;
+using HabitTracker.Dknx8888.Models;
+
 namespace HabitTracker.Dknx8888;
 
-public class HabitManager
+public class HabitManager(HabitRepository habitRepository)
 {
-    public async Task ViewHabits()
+    public async Task ShowHabitMenu()
     {
-        Console.Clear();
-        Console.WriteLine("Habit Viewer\n");
-        Console.WriteLine("Input the habit ID to select it\n" +
-                          "N to create a new habit\n" +
-                          "Q to go back\n");
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Habit Viewer\n");
+            Console.WriteLine("Input the corresponding ID to select the habit\n" +
+                              "N to create a new habit\n" +
+                              "Q to go back\n");
         
-        Console.WriteLine($"{"ID",-4} | {"Habit", -30} | {"Unit", -30}");
-        Console.WriteLine(new string('-', 68));
+            Console.WriteLine($"{"ID",-4} | {"Habit", -30} | {"Unit", -30}");
+            Console.WriteLine(new string('-', 68));
+
+            var habits = habitRepository.GetAll();
+
+            if (habits.Count == 0)
+            {
+                Console.WriteLine("<No habits found>");
+            }
+            
+            foreach (var habit in habits)
+            {
+                Console.WriteLine($"{habit.Id,-4} | {habit.Name,-30} | {habit.Unit,-30}");
+            }
         
-        // TODO: View habits
+            var input = Console.ReadLine()?.Trim().ToLower();
         
-        var input = Console.ReadLine()?.Trim();
-    
-        // TODO: Input check
-        await CreateHabit();
+            switch (input)
+            {
+                case "n":
+                    await CreateHabit();
+                    break;
+            
+                case "q":
+                    return;
+            
+                default:
+                    // TODO: Select
+                    break;
+            }
+        }
     }
     
     private async Task CreateHabit()
     {
         Console.Clear();
-        Console.WriteLine("What is the name of the new habit?");
-        var newHabitInput = Console.ReadLine()?.Trim();
-        
-        Console.WriteLine("What is the unit of measurement for this habit?");
-        var unitInput = Console.ReadLine()?.Trim();
+        var newHabitInput = FormInput.StringInput("What is the name of the new habit?\n");
+        var unitInput = FormInput.StringInput("What is the unit of measurement for this habit?\n");
         
         Console.WriteLine("Is this correct? Press Y to confirm, N to cancel");
         Console.WriteLine($"New habit: {newHabitInput}");
@@ -45,9 +69,16 @@ public class HabitManager
         {
             return;
         }
+
+        var newHabit = new Habit
+        {
+            Name = newHabitInput,
+            Unit = unitInput
+        };
+        
+        habitRepository.AddHabit(newHabit);
         
         Console.WriteLine("Habit created!");
-        // TODO: Save new habit to database
         await Task.Delay(TimeSpan.FromSeconds(2));
     }
 }

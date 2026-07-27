@@ -4,3 +4,4 @@ using HabitTracker.Dknx8888.Data;
 Database.Initialize();
 var menu = new Menu();
 await menu.ShowMenu();
+

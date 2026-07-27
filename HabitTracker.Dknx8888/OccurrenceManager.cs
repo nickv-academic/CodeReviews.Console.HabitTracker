@@ -2,7 +2,7 @@ namespace HabitTracker.Dknx8888;
 
 public class OccurrenceManager
 {
-    public void CreateOccurrence()
+    public static void CreateOccurrence()
     {
         var presentTime = DateTime.Now;
         
@@ -27,7 +27,7 @@ public class OccurrenceManager
         var noteInput = Console.ReadLine()?.Trim();
     }
 
-    public void ViewOccurrences()
+    public static void ViewOccurrences()
     {
         
     }

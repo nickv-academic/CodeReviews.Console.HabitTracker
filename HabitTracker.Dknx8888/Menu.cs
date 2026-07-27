@@ -1,3 +1,5 @@
+using HabitTracker.Dknx8888.Data;
+
 namespace HabitTracker.Dknx8888;
 
 public class Menu
@@ -19,16 +21,15 @@ public class Menu
             switch (input)
             {
                 case "1":
-                    var createOccurrence = new OccurrenceManager();
-                    createOccurrence.CreateOccurrence();
+                    OccurrenceManager.CreateOccurrence();
                     break;
                 case "2":
-                    var viewOccurrence = new OccurrenceManager();
-                    viewOccurrence.ViewOccurrences();
+                    OccurrenceManager.ViewOccurrences();
                     break;
                 case "3":
-                    var habitManager = new HabitManager();
-                    await habitManager.ViewHabits();
+                    var habitRepository = new HabitRepository();
+                    var habitManager = new HabitManager(habitRepository);
+                    await habitManager.ShowHabitMenu();
                     break;
                 case "4":
                     Console.WriteLine("\nGoodbye!");

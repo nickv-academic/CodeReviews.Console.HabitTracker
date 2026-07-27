@@ -6,9 +6,14 @@ public class Database
 {
     private const string ConnectionString = "Data Source=habit-tracker.db;Foreign Keys=True;";
 
+    public static SqliteConnection CreateConnection()
+    {
+        return new SqliteConnection(ConnectionString);
+    }
+    
     public static void Initialize()
     {
-        using var connection = new SqliteConnection(ConnectionString);
+        using var connection = CreateConnection();
         connection.Open();
 
         using var tableCmd = connection.CreateCommand();
@@ -17,8 +22,8 @@ public class Database
             """
                 CREATE TABLE IF NOT EXISTS Habits (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Name TEXT,
-                    Unit TEXT
+                    Name TEXT NOT NULL,
+                    Unit TEXT NOT NULL 
                 );
 
                 CREATE TABLE IF NOT EXISTS Occurrences (
