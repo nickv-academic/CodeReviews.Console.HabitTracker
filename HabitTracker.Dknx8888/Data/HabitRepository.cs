@@ -57,7 +57,7 @@ public class HabitRepository
             command.Parameters.AddWithValue("@name", newHabit.Name);
             command.Parameters.AddWithValue("@unit", newHabit.Unit);
 
-            var rowInserted = command.ExecuteNonQuery();
+            command.ExecuteNonQuery();
         }
         catch (SqliteException ex)
         {
