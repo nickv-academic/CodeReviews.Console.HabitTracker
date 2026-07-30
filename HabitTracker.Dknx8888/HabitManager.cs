@@ -78,7 +78,7 @@ public class HabitManager(HabitRepository habitRepository)
         var newHabitInput = FormInput.StringInput("What is the name of the new habit?");
         var unitInput = FormInput.StringInput("What is the unit of measurement for this habit?");
         
-        Console.WriteLine("Is this correct? Press Y to confirm, N to cancel");
+        Console.WriteLine("\nIs this correct? Press Y to confirm, N to cancel");
         Console.WriteLine($"New habit: {newHabitInput}");
         Console.WriteLine($"Unit: {unitInput}");
 

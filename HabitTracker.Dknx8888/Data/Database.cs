@@ -28,7 +28,7 @@ public class Database
 
                 CREATE TABLE IF NOT EXISTS Occurrences (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    HabitID INTEGER REFERENCES Habits(Id),
+                    HabitId INTEGER REFERENCES Habits(Id),
                     Date TEXT,
                     Quantity REAL CHECK (Quantity >= 0),
                     Note TEXT
